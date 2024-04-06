@@ -317,6 +317,26 @@ class Utils
     }
 
     /**
+     * Validates if the HTTP referer header matches the current server's host.
+     * This can be useful for preventing CSRF attacks by ensuring that the request 
+     * comes from the same origin.
+     *
+     * @return bool Returns true if the referer header is present and matches the host of the server; false otherwise.
+     */
+    public static function checkReferer(): bool
+    {
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $refererhost = parse_url($_SERVER['HTTP_REFERER']);
+            $refererhost['host'] .= (!empty($refererhost['port'])) ? (':'.$refererhost['port']) : '';
+            if ($refererhost['host'] === $_SERVER['HTTP_HOST']) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Redirects the browser to a specific URL using an HTTP response header.
      *
      * @param string $url The URL where the user should be redirected.
