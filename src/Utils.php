@@ -15,7 +15,7 @@ class Utils
      * Check if specified keys in an array are present and optionally not empty.
      *
      * @param array $array The array to check values in.
-     * @param array $checkArray The keys to be checked within the array.
+     * @param array $checkArray The keys to be checked within the array, set empty to check all keys.
      * @param bool $allowEmpty Flag to allow the values corresponding to keys in $checkArray to be empty.
      * 
      * @return bool Returns true if all keys exist (and are not empty, if $allowEmpty is false); otherwise, returns false.
