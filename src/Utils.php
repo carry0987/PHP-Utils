@@ -27,21 +27,20 @@ class Utils
             $checkArray = array_keys($array);
         }
 
-        $result = true;
         foreach ($checkArray as $key) {
             // Check if the key is set in the input array
             if (isset($array[$key])) {
                 // If not allowing empty values and the value is empty, set result to false
                 if (!$allowEmpty && empty($array[$key])) {
-                    $result = false;
+                    return false;
                 }
             } else {
                 // If the key is not set, set result to false
-                $result = false;
+                return false;
             }
         }
 
-        return $result;
+        return true;
     }
 
     /**
