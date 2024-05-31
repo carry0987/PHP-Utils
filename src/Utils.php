@@ -20,8 +20,13 @@ class Utils
      * 
      * @return bool Returns true if all keys exist (and are not empty, if $allowEmpty is false); otherwise, returns false.
      */
-    public static function checkEmpty(array $array, array $checkArray, bool $allowEmpty = false): bool
+    public static function checkEmpty(array $array, array $checkArray = [], bool $allowEmpty = false): bool
     {
+        // If $checkArray is empty, check all keys in $array
+        if (empty($checkArray)) {
+            $checkArray = array_keys($array);
+        }
+
         $result = true;
         foreach ($checkArray as $key) {
             // Check if the key is set in the input array
