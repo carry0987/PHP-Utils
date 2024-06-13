@@ -223,6 +223,22 @@ class Utils
     }
 
     /**
+     * Create a directory for the file path if it does not exist.
+     *
+     * @param string $filePath The full file path for which the directory should be created.
+     * @param int $permission The permission to be set for the created directory.
+     * @return bool Returns true if the directory was created or already exists, false otherwise.
+     */
+    public static function makeFilePath(string $filePath, int $permission = 0755): bool
+    {
+        // Get the directory part of the file path
+        $dirPath = dirname($filePath);
+
+        // Call makePath to create the directory if it does not exist
+        return self::makePath($dirPath, $permission);
+    }
+
+    /**
      * Generate a random string with a specified length.
      * 
      * @param int $length The length of the random string to generate.
