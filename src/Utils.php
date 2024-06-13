@@ -47,14 +47,34 @@ class Utils
      * Generates an xxHash for the given string data.
      * 
      * @param string $data The string data to hash.
-     * @param int $seed The seed value for the hash (default: 0).
+     * @param int $seed The seed value for the hash, if 0 default seed is used.
      * @param string $algorithm The hashing algorithm to use ('xxh32' or 'xxh64').
      * 
      * @return string The generated xxHash string.
      */
     public static function xxHash(string $data, int $seed = 0, string $algorithm = 'xxh64'): string
     {
-        return hash($algorithm, $data, false, ['seed' => $seed]);
+        // Use seed option only if seed is not zero
+        $options = $seed !== 0 ? ['seed' => $seed] : [];
+
+        return hash($algorithm, $data, false, $options);
+    }
+
+    /**
+     * Generates an xxHash for the given file.
+     *
+     * @param string $filePath The path to the file to hash.
+     * @param int $seed The seed value for the hash, if 0 default seed is used.
+     * @param string $algorithm The hashing algorithm to use ('xxh32' or 'xxh64').
+     *
+     * @return string|false The generated xxHash string, or false on failure.
+     */
+    public static function xxHashFile(string $filePath, int $seed = 0, string $algorithm = 'xxh64'): string|false
+    {
+        // Use seed option only if seed is not zero
+        $options = $seed !== 0 ? ['seed' => $seed] : [];
+
+        return hash_file($algorithm, $filePath, false, $options);
     }
 
     /**
@@ -135,7 +155,7 @@ class Utils
      * 
      * @return string The formatted date string according to the provided format.
      */
-    public static function timestampToDate(int $timestamp, string $format = 'Y/m/d/')
+    public static function timestampToDate(int $timestamp, string $format = 'Y/m/d/'): string
     {
         $date = new DateTimeImmutable('@'.$timestamp);
 
@@ -210,7 +230,7 @@ class Utils
      * 
      * @return string A randomly generated string of the specified length.
      */
-    public static function generateRandom(int $length, int $numeric = 0)
+    public static function generateRandom(int $length, int $numeric = 0): string
     {
         $seed = base_convert(md5(microtime().$_SERVER['DOCUMENT_ROOT']), 16, $numeric ? 10 : 35);
         $seed = $numeric ? (str_replace('0', '', $seed).'012340567890') : ($seed.'zZ'.strtoupper($seed));
