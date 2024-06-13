@@ -54,7 +54,7 @@ class Utils
      */
     public static function xxHash(string $data, int $seed = 0, string $algorithm = 'xxh64'): string
     {
-        return hash($algorithm, $data, $seed);
+        return hash($algorithm, $data, false, ['seed' => $seed]);
     }
 
     /**
