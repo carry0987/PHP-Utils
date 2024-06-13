@@ -44,6 +44,20 @@ class Utils
     }
 
     /**
+     * Generates an xxHash for the given string data.
+     * 
+     * @param string $data The string data to hash.
+     * @param int $seed The seed value for the hash (default: 0).
+     * @param string $algorithm The hashing algorithm to use ('xxh32' or 'xxh64').
+     * 
+     * @return string The generated xxHash string.
+     */
+    public static function xxHash(string $data, int $seed = 0, string $algorithm = 'xxh64'): string
+    {
+        return hash($algorithm, $data, $seed);
+    }
+
+    /**
      * Orders an array according to another array that specifies the order of keys.
      * 
      * @param array $array The array to order.
