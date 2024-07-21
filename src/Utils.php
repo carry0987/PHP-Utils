@@ -10,9 +10,9 @@ use DateTimeImmutable;
 
 class Utils
 {
-    const DIR_SEP = DIRECTORY_SEPARATOR;
-    const ORDER_ASC = 'ASC';
-    const ORDER_DESC = 'DESC';
+    public const DIR_SEP = DIRECTORY_SEPARATOR;
+    public const ORDER_ASC = 'ASC';
+    public const ORDER_DESC = 'DESC';
 
     /**
      * Check if specified keys in an array are present and optionally not empty.
