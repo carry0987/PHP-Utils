@@ -1,7 +1,10 @@
 <?php
+declare(strict_types=1);
+
 namespace carry0987\Utils;
 
 use carry0987\Utils\Exceptions\UtilsException;
+use carry0987\Utils\Exceptions\IOException;
 use DateTimeZone;
 use DateTimeImmutable;
 
@@ -209,16 +212,39 @@ class Utils
      */
     public static function makePath(string $path, int $permission = 0755): bool
     {
-        // Check if directory already exists
-        if (!file_exists($path)) {
-            // Attempt to create the directory with the specified permissions
-            return mkdir($path, $permission, true);
-        } elseif (!is_dir($path)) {
-            // If the path exists but is not a directory, return false
-            return false;
+        $path = self::trimPath($path); // Ensure path format is consistent.
+        $isAbsolute = (strpos($path, self::DIR_SEP) === 0); // Determine if it's an absolute path.
+        $currentPath = $isAbsolute ? self::DIR_SEP : ''; // Handle both absolute and relative paths.
+        $parts = array_filter(explode(self::DIR_SEP, $path), 'strlen'); // Split the path into individual parts.
+        $pathStack = [];
+
+        // Loop through parts to create directories.
+        foreach ($parts as $part) {
+            if ($part === '..') {
+                // If it's a parent directory indicator, pop the last element from the stack
+                // unless the stack is empty which means we are at the root for absolute paths.
+                if (!empty($pathStack)) {
+                    array_pop($pathStack);
+                } elseif (!$isAbsolute) {
+                    // Append .. parts to stack if path is relative.
+                    $pathStack[] = $part;
+                }
+                // If the path is absolute and the stack is empty, no action is needed since we are at the root.
+            } elseif ($part !== '.') {
+                // Skip the current directory indicator '.' as it has no effect on the path.
+                $pathStack[] = $part; // Push the current part to the stack.
+            }
         }
 
-        // The directory already exists
+        // Reconstruct path from the stack.
+        $currentPath .= implode(self::DIR_SEP, $pathStack);
+
+        // Ensure the directory exists.
+        if (!is_dir($currentPath) && !mkdir($currentPath, $permission, true)) {
+            throw new IOException('Unable to create directory '.$currentPath);
+        }
+
+        // Return true if the directory has been successfully created or already exists.
         return true;
     }
 

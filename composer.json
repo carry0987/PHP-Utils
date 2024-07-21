@@ -3,7 +3,7 @@
     "description": "This Utils library provides a collection of static methods designed to help in various common tasks encountered in PHP development. From manipulating arrays and strings to handling date-time conversions and file paths, this library aims to be a handy tool for PHP developers.",
     "type": "library",
     "require": {
-        "php": ">=8"
+        "php": ">=8.0"
     },
     "license": "MIT",
     "autoload": {
