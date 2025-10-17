@@ -118,7 +118,7 @@ final class UtilsTest extends TestCase
         $this->assertSame('keep', $sanAll['c']);
 
         $sanSel = Utils::arraySanitize($arr, ['b']);
-        $this->assertSame('<b>y</b>', $sanSel['b']);
+        $this->assertSame('&lt;b&gt;y&lt;/b&gt;', $sanSel['b']);
         $this->assertSame(" 'x' ", $sanSel['a']);
     }
 
