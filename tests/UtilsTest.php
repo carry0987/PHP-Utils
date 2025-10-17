@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 use carry0987\Utils\Utils;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
+#[CoversClass(Utils::class)]
 final class UtilsTest extends TestCase
 {
     public function testCheckEmpty_AllKeysPresentAndNotEmpty(): void
