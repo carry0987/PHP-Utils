@@ -174,7 +174,7 @@ class Utils
      * 
      * @return string The generated path with directories structured as "Year/Month/Day/".
      */
-    public static function getPathByDate(int $timestamp = null): string
+    public static function getPathByDate(?int $timestamp = null): string
     {
         if ($timestamp === null) {
             $timestamp = time();   
@@ -357,7 +357,7 @@ class Utils
      * 
      * @return array The sanitized associative array.
      */
-    public static function arraySanitize(array $array, array $selectKey = null): array
+    public static function arraySanitize(array $array, ?array $selectKey = null): array
     {
         $result = [];
         if (!empty($selectKey)) {
@@ -387,7 +387,7 @@ class Utils
      * 
      * @return bool True if numeric or a numeric string, false otherwise.
      */
-    public static function validateInteger(string|int $num = null): bool
+    public static function validateInteger(string|int|null $num = null): bool
     {
         // Return false if the $num is null
         if ($num === null) return false;
