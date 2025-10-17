@@ -73,7 +73,7 @@ jobs:
 
       - name: Run PHPUnit
         run: |
-          if [ "${{ matrix.coverage }}" = "true" ]; then
+          if [ "${{ matrix.coverage }}" == "true" ]; then
             mkdir -p build/logs
             vendor/bin/phpunit --coverage-clover build/logs/clover.xml
           else
