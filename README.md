@@ -1,5 +1,6 @@
 # PHP-Utils
-[![Packgist](https://img.shields.io/packagist/v/carry0987/utils.svg?style=flat-square)](https://packagist.org/packages/carry0987/utils)  
+[![Packgist](https://img.shields.io/packagist/v/carry0987/utils.svg?style=flat-square)](https://packagist.org/packages/carry0987/utils)
+![CI](https://github.com/carry0987/PHP-Utils/actions/workflows/CI.yml/badge.svg)  
 This Utils library provides a collection of static methods designed to help in various common tasks encountered in PHP development. From manipulating arrays and strings to handling date-time conversions and file paths, this library aims to be a handy tool for PHP developers.
 
 ## Features
